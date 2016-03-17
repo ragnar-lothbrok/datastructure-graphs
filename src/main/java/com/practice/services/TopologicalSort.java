@@ -12,6 +12,23 @@ import com.practice.model.Vertex;
 
 public class TopologicalSort<T> {
 
+	/**
+	 * In this first we are searching for the vertexes whose InDegree in zero
+	 * and inserting them in Queue.
+	 * 
+	 * We will be popping vertexes from Queue and then decrease the InDegrees of
+	 * Adjacent Vertexes.
+	 * 
+	 * In last if number of popped vertex size is not matching with vertex count
+	 * then there must be a cycle.
+	 * 
+	 * 
+	 * TODO : Find all possible Topological sorts.
+	 * 
+	 * @param graph
+	 * @return
+	 */
+
 	public List<Vertex<T>> getTopologicalSortingOrder(Graph<T> graph) {
 		List<Vertex<T>> topologicalSortedList = new ArrayList<Vertex<T>>();
 		Map<Vertex<T>, Integer> vertexInDegreeMap = new HashMap<Vertex<T>, Integer>();
