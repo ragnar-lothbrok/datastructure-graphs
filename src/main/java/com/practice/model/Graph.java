@@ -1,6 +1,7 @@
 package com.practice.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -12,15 +13,15 @@ public class Graph<T> {
 	private Set<Vertex<T>> vertexSet;
 
 	private int adjacentMat[][] = null;
-	private Map<Vertex<T>, List<Vertex<T>>> adjacencyListMap;
+	private Map<Vertex<T>, List<Vertex<T>>> adjacencyListMap = new HashMap<Vertex<T>, List<Vertex<T>>>();
 
 	private boolean isDirectedGraph;
 
 	public Graph(int numOfVertex, boolean isDirectedGraph) {
 		this.numOfVertex = numOfVertex;
 		this.isDirectedGraph = isDirectedGraph;
-		adjacentMat = new int[numOfVertex][numOfVertex];
-		vertexSet = new LinkedHashSet<Vertex<T>>(numOfVertex);
+		this.adjacentMat = new int[numOfVertex][numOfVertex];
+		this.vertexSet = new LinkedHashSet<Vertex<T>>(numOfVertex);
 	}
 
 	public void addVertex(T t) {
@@ -57,5 +58,20 @@ public class Graph<T> {
 			}
 			System.out.println();
 		}
+	}
+
+	public Integer getInDegree(Vertex<T> vertex) {
+		int count = 0;
+		for (int i = 0; i < numOfVertex; i++) {
+			if (i != this.getVertexList().indexOf(vertex)
+					&& adjacentMat[i][this.getVertexList().indexOf(vertex)] != 0) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public List<Vertex<T>> getAdjacentNodes(Vertex<T> vertex) {
+		return this.adjacencyListMap.get(vertex);
 	}
 }
