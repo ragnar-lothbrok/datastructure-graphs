@@ -22,6 +22,7 @@ public class TopologicalSort<T> {
 	 * In last if number of popped vertex size is not matching with vertex count
 	 * then there must be a cycle.
 	 * 
+	 * O(V+E)
 	 * 
 	 * TODO : Find all possible Topological sorts.
 	 * 
