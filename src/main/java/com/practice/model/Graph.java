@@ -16,6 +16,10 @@ public class Graph<T> {
 	private Map<Vertex<T>, List<Vertex<T>>> adjacencyListMap = new HashMap<Vertex<T>, List<Vertex<T>>>();
 
 	private boolean isDirectedGraph;
+	
+	public int[][] getAdjacentMat(){
+		return this.adjacentMat;
+	}
 
 	public Graph(int numOfVertex, boolean isDirectedGraph) {
 		this.numOfVertex = numOfVertex;
