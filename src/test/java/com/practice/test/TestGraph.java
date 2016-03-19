@@ -8,9 +8,10 @@ import org.junit.Test;
 import com.practice.model.Graph;
 import com.practice.model.Vertex;
 import com.practice.services.TopologicalSort;
-import com.practice.services.UnWeightedShortestPathService;
-import com.practice.services.WeightedShortestPathService;
-import com.practice.services.WeightedShortestPathServiceUsingPQ;
+import com.practice.services.shortestpath.UnWeightedShortestPathService;
+import com.practice.services.shortestpath.WeightedShortestPathService;
+import com.practice.services.shortestpath.WeightedShortestPathServiceWithPath;
+import com.practice.services.shortestpath.WeightedShortestPathServiceWithPathUsingPQ;
 
 public class TestGraph {
 
@@ -74,16 +75,25 @@ public class TestGraph {
 		Integer sourceV = 1;
 		Integer destinationV = 4;
 		WeightedShortestPathService<Integer> weightedShortestPathService = new WeightedShortestPathService<Integer>();
-		System.out.println("[Weighted]Distance between S[" + sourceV + "] and D[" + destinationV + "] is : "
+		System.out.println("[Weighted Only Distance]Distance between S[" + sourceV + "] and D[" + destinationV + "] is : "
 				+ weightedShortestPathService.shortedPath(weightedGraph, sourceV, destinationV));
+	}
+	
+	@Test
+	public void shortestDistanceWeightedPlusPath() {
+		Integer sourceV = 1;
+		Integer destinationV = 4;
+		WeightedShortestPathServiceWithPath<Integer> weightedShortestPathService = new WeightedShortestPathServiceWithPath<Integer>();
+		System.out.println("[Weighted + PATH]Distance between S[" + sourceV + "] and D[" + destinationV + "] is : "
+				+ weightedShortestPathService.shortestPath(weightedGraph, sourceV, destinationV));
 	}
 	
 	@Test
 	public void shortestDistanceWeightedPQ() {
 		Integer sourceV = 1;
 		Integer destinationV = 4;
-		WeightedShortestPathServiceUsingPQ<Integer> weightedShortestPathService = new WeightedShortestPathServiceUsingPQ<Integer>();
-		System.out.println("[Weighted PQ]Distance between S[" + sourceV + "] and D[" + destinationV + "] is : "
+		WeightedShortestPathServiceWithPathUsingPQ<Integer> weightedShortestPathService = new WeightedShortestPathServiceWithPathUsingPQ<Integer>();
+		System.out.println("[Weighted + PATH PQ]Distance between S[" + sourceV + "] and D[" + destinationV + "] is : "
 				+ weightedShortestPathService.shortestPath(weightedGraph, sourceV, destinationV));
 	}
 

@@ -1,5 +1,6 @@
-package com.practice.services;
+package com.practice.services.shortestpath;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -7,16 +8,12 @@ import java.util.Queue;
 import com.practice.model.Graph;
 import com.practice.model.Vertex;
 
-public class WeightedShortestPathService<T> {
+public class UnWeightedShortestPathService<T> {
 
 	/**
-	 * Shortest distance between source and destination node in directed weighed
-	 * graph. Here we will initialize distance array to Maximum value because
-	 * here A vertex can be visited multiple times.
+	 * Shortest distance between source and destination node in directed unweighed graph.
 	 * 
-	 * But here condition is there should not be any negative edges.
-	 * 
-	 * Here vertex will be visited only once. So complexity O(E + V^2)
+	 * Here vertex will be visited only once. So complexity O(V+E)
 	 * 
 	 * 
 	 * @param graph
@@ -27,30 +24,27 @@ public class WeightedShortestPathService<T> {
 	public Integer shortedPath(Graph<Integer> graph, Integer sourceV, Integer destinationV) {
 		int distance[] = new int[graph.getNumOfVertex()];
 		for (int i = 0; i < graph.getVertexList().size(); i++) {
-			distance[i] = Integer.MAX_VALUE;
+			distance[i] = -1;
 		}
 
+		List<Vertex<Integer>> visitedVertexList = new ArrayList<Vertex<Integer>>();
 		Vertex<Integer> sourceVertex = new Vertex<Integer>(sourceV);
 
 		Queue<Vertex<Integer>> queue = new LinkedList<Vertex<Integer>>();
 		queue.add(sourceVertex);
 		distance[graph.getVertexList().indexOf(sourceVertex)] = 0;
-		int count =0;
 		while (!queue.isEmpty()) {
-			count++;
 			Vertex<Integer> poppedVertex = queue.poll();
+			visitedVertexList.add(poppedVertex);
 			List<Vertex<Integer>> adjacentVertexList = graph.getAdjacentNodes(poppedVertex);
 			for (int i = 0; i < adjacentVertexList.size(); i++) {
-				int updatedDistance = distance[graph.getVertexList().indexOf(poppedVertex)]
-						+ graph.getAdjacentMat()[graph.getVertexList().indexOf(poppedVertex)][graph.getVertexList()
-								.indexOf(adjacentVertexList.get(i))];
-				if (updatedDistance < distance[graph.getVertexList().indexOf(adjacentVertexList.get(i))]) {
+				if (!visitedVertexList.contains(adjacentVertexList.get(i))) {
 					queue.add(adjacentVertexList.get(i));
-					distance[graph.getVertexList().indexOf(adjacentVertexList.get(i))] = updatedDistance;
+					distance[graph.getVertexList().indexOf(
+							adjacentVertexList.get(i))] = distance[graph.getVertexList().indexOf(poppedVertex)] + 1;
 				}
 			}
 		}
-		System.out.println("###"+count);
 		return distance[graph.getVertexList().indexOf(new Vertex<Integer>(destinationV))];
 	}
 }
